@@ -1,4 +1,4 @@
-#include "main.h";
+#include "main.h"
 
 void writePayslipCSV(Employee employee, double grossSalary, double paye, double socialHealth, double housingLevy, double nssf, double netSalary, const char *filename) {
     FILE *fp = fopen(filename, "a"); // "a" for append mode
@@ -20,4 +20,4 @@ void writePayslipCSV(Employee employee, double grossSalary, double paye, double 
             netSalary);
 
     fclose(fp);
-};
+}

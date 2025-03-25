@@ -1,4 +1,4 @@
-#include "main.h";
+#include "main.h"
 
 double calculateGrossSalary(Employee employee) {
     return employee.basic_salary + employee.housing_allowance + employee.transport_allowance;

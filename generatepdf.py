@@ -2,16 +2,16 @@ import csv
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
+import os
 
 def read_employee_csv(filename):
-    """Reads employee data from a CSV file."""
-    employee_data = {}
+    """Reads all employee data from a CSV file."""
+    employee_data_list = []
     with open(filename, mode='r') as file:
         reader = csv.DictReader(file)
         for row in reader:
-            employee_data = row
-            break
-    return employee_data
+            employee_data_list.append(row)
+    return employee_data_list
 
 def generate_employee_payslip_pdf(employee_data, output_filename, logo_filename):
     """Generates an employee payslip PDF with spaced employee details."""
@@ -53,13 +53,14 @@ def generate_employee_payslip_pdf(employee_data, output_filename, logo_filename)
 
 def main():
     csv_filename = 'payslips.csv'
-    pdf_filename = 'employee_payslip.pdf'
     logo_filename = 'logo.jpeg'
 
-    employee_data = read_employee_csv(csv_filename)
-    generate_employee_payslip_pdf(employee_data, pdf_filename, logo_filename)
-
-    print(f"Employee payslip generated: {pdf_filename}")
+    employee_data_list = read_employee_csv(csv_filename)
+    for employee_data in employee_data_list:
+        employee_id = employee_data.get("Employee ID", "Unknown")
+        pdf_filename = f'employee_payslip_{employee_id}.pdf'
+        generate_employee_payslip_pdf(employee_data, pdf_filename, logo_filename)
+        print(f"Employee payslip generated: {pdf_filename}")
 
 if __name__ == "__main__":
     main()
